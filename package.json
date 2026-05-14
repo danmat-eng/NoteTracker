@@ -1,0 +1,26 @@
+{
+  "name": "noteapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  "server": "cd server && node index.js",
+  "client": "cd client && npm run dev",
+  "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danmat-eng/NoteTracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/danmat-eng/NoteTracker/issues"
+  },
+  "homepage": "https://github.com/danmat-eng/NoteTracker#readme",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
