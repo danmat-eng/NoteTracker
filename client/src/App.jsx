@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios' // Make sure you've run: npm install axios
+import axios from 'axios'
+import './App.css'
+
+// Make global lists or something outside app
 
 function App() {
   const [greeting, setGreeting] = useState("Loading...")
@@ -14,9 +17,15 @@ function App() {
   }, [])
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>MERN Stack Test</h1>
-      <p>Message from Backend: <strong>{greeting}</strong></p>
+    <div>
+      <div className='filesContainer'>
+        <button className='noteFiles'>Math Notes</button>
+        <button className='noteFiles'>English Notes</button>
+        <button className='noteFiles'>Chem Notes</button>
+      </div>
+      <div>
+        <textarea className='textBox'></textarea>
+      </div>
     </div>
   )
 }
