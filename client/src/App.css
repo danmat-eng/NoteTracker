@@ -12,7 +12,7 @@
 }
 
 .filesContainer {
-  margin: 30px auto;
+  margin: 20px auto;
   max-width: 1250px;
   background-color: #fff;
   box-shadow: 0 4px 12px rgba(10,86,64,0.15);
@@ -37,7 +37,94 @@
   border-width: 1.5px;
 }
 
+.saveMessage {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-right: 15px;
+  margin-left: 5px;
+}
+
 .noteFiles:hover{
-  transform: scale(1.1);
+  transform: scale(1.025);
   transition: all .6s ease;
+}
+
+.addButton {
+  margin: auto;
+  margin-right: 25px;
+  height: 75px;
+  width: 85px;
+  font-family:'Courier New', Courier, monospace;
+  font-weight: 550;
+  font-size: 1rem;
+  transition: all 0.75s ease;
+  background-color:rgb(247, 178, 104);
+  border-radius: 10px;
+  border-width: 1.5px;
+}
+
+.addButton:hover{
+  transform: scale(1.1);
+  transition: all .8s ease;
+}
+
+.saveButton {
+  margin: auto;
+  margin-right: 5px;
+  height: 75px;
+  width: 85px;
+  font-family:'Courier New', Courier, monospace;
+  font-weight: 550;
+  font-size: 1rem;
+  transition: all 0.5s ease;
+  background-color:rgb(197, 247, 104);
+  border-radius: 10px;
+  border-width: 1.5px;
+}
+
+.saveButton:hover{
+  transform: scale(1.05);
+  transition: all .6s ease;
+}
+
+.popupOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popupContent {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  font-family: monospace;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.popupButtons {
+  display: flex;
+  font-family: monospace;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.deleteButton {
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 2px 8px;
+  margin-left: 5px;
+}
+
+.deleteButton:hover {
+  background: #ff0000;
 }
