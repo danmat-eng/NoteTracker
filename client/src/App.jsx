@@ -4,7 +4,7 @@ import './App.css';
 
 const API_URL = 'http://localhost:5000/api/notes';
 
-const NotePopup = ({ isOpen, onClose, onCreate, title, setTitle }) => {
+const NotePopup = ({ isOpen, onClose, onCreate, title, setTitle }) => { // Controls the popup when a note is created and stores the factors for each note including the title.
   if (!isOpen) return null;
   return (
     <div className='popupOverlay'>
@@ -26,13 +26,13 @@ const NotePopup = ({ isOpen, onClose, onCreate, title, setTitle }) => {
 };
 
 function App() {
-  const [notes, setNotes] = useState([]);
-  const [activeNoteIndex, setActiveNoteIndex] = useState(0);
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [newNoteTitle, setNewNoteTitle] = useState('');
-  const [saveMessage, setSaveMessage] = useState('');
+  const [notes, setNotes] = useState([]); // Array holding notes
+  const [activeNoteIndex, setActiveNoteIndex] = useState(0); // Tracks current note toggled
+  const [isPopupOpen, setIsPopupOpen] = useState(false); // Toggles note create popup
+  const [newNoteTitle, setNewNoteTitle] = useState(''); // Stores title for new note
+  const [saveMessage, setSaveMessage] = useState(''); // Displays saved message when note is saved.
 
-  useEffect(() => {
+  useEffect(() => { // grabs notes from backend/database
     const fetchNotes = async () => {
       try {
         const response = await axios.get(API_URL);
@@ -44,7 +44,7 @@ function App() {
     fetchNotes();
   }, []);
 
-  const handleContentChange = (e) => {
+  const handleContentChange = (e) => { // Updates note string data when text content is changed.
     const updatedNotes = [...notes];
     if (updatedNotes[activeNoteIndex]) {
       updatedNotes[activeNoteIndex].content = e.target.value;
@@ -52,7 +52,7 @@ function App() {
     }
   };
 
-  const handleCreateNote = async () => {
+  const handleCreateNote = async () => { // Stores new note being created.
     if (newNoteTitle.trim()) {
       try {
         const response = await axios.post(API_URL, {
@@ -70,7 +70,7 @@ function App() {
     }
   };
 
-  const handleSaveNote = async () => {
+  const handleSaveNote = async () => { // Saves note so the text content saves across notes.
     const activeNote = notes[activeNoteIndex];
     if (!activeNote) return;
 
@@ -87,7 +87,7 @@ function App() {
     }
   };
 
-  const handleDeleteNote = async (idToDelete) => {
+  const handleDeleteNote = async (idToDelete) => { // Deletes new note.
     try {
       await axios.delete(`${API_URL}/${idToDelete}`);
       

@@ -6,15 +6,14 @@ const Note = require('./schema/Note');
 
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect('mongodb://127.0.0.1:27017/NoteApp')
+mongoose.connect('mongodb://127.0.0.1:27017/NoteApp') // Connects to MongoDB URL
   .then(() => console.log("Connected to MongoDB"))
   .catch(err => console.error("Unable to connect to MongoDB:", err));
 
-app.get('/api/notes', async (req, res) => {
+app.get('/api/notes', async (req, res) => { // Reads/Retrieves note id's from database
   try {
     const notes = await Note.find();
     res.json(notes);
@@ -23,7 +22,7 @@ app.get('/api/notes', async (req, res) => {
   }
 });
 
-app.post('/api/notes', async (req, res) => {
+app.post('/api/notes', async (req, res) => { // Brings new note data from frontend to database such as title and content of text.
   try {
     const newNote = new Note({
       title: req.body.title,
@@ -36,7 +35,7 @@ app.post('/api/notes', async (req, res) => {
   }
 });
 
-app.put('/api/notes/:id', async (req, res) => {
+app.put('/api/notes/:id', async (req, res) => { // Modifies note data such as new text.
   try {
     const updatedNote = await Note.findByIdAndUpdate(
       req.params.id,
@@ -49,7 +48,7 @@ app.put('/api/notes/:id', async (req, res) => {
   }
 });
 
-app.delete('/api/notes/:id', async (req, res) => {
+app.delete('/api/notes/:id', async (req, res) => { // Removes notes from database
   try {
     await Note.findByIdAndDelete(req.params.id);
     res.json({ message: 'Noted deleted.'})
@@ -60,6 +59,6 @@ app.delete('/api/notes/:id', async (req, res) => {
 
 const PORT = 5000;
 
-app.listen(PORT, () => {
+app.listen(PORT, () => { // Establishes database connection
   console.log('Server listening on port ${PORT}`')
 });

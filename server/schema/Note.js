@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 
 const noteSchema = new mongoose.Schema({
-    title: {
+    title: { // Title of Note
         type: String,
         required: true,
     },
-    content: {
+    content: { // Text content inside notes
         type: String,
         default: '',
     }
-}, { timestamps: true});
+}, { timestamps: true}); // Tracks createdAt and updatedAt fields to log the times.
 
-module.exports = mongoose.model('Note', noteSchema)
+module.exports = mongoose.model('Note', noteSchema) // Imports new variables.
