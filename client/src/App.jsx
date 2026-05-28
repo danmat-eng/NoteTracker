@@ -2,14 +2,35 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import './App.css';
 
+const API_URL = 'http://localhost:5000/api/notes';
+
+const NotePopup = ({ isOpen, onClose, onCreate, title, setTitle }) => {
+  if (!isOpen) return null;
+  return (
+    <div className='popupOverlay'>
+      <div className='popupContent'>
+        <h3>Enter Note Title</h3>
+        <input 
+          type='text' 
+          value={title} 
+          onChange={(e) => setTitle(e.target.value)} 
+          placeholder='ex: Math Study' 
+        />
+        <div className='popupButtons'>
+          <button onClick={onCreate}>Create</button>
+          <button onClick={onClose}>Cancel</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 function App() {
   const [notes, setNotes] = useState([]);
   const [activeNoteIndex, setActiveNoteIndex] = useState(0);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [newNoteTitle, setNewNoteTitle] = useState('');
   const [saveMessage, setSaveMessage] = useState('');
-
-  const API_URL = 'http://localhost:5000/api/notes';
 
   useEffect(() => {
     const fetchNotes = async () => {
@@ -117,23 +138,13 @@ function App() {
         ></textarea>
       </div>
 
-      {isPopupOpen && (
-        <div className='popupOverlay'>
-          <div className='popupContent'>
-            <h3>Enter Note Title</h3>
-            <input
-              type='text'
-              value={newNoteTitle}
-              onChange={(e) => setNewNoteTitle(e.target.value)}
-              placeholder='ex: Math Study'
-            />
-            <div className='popupButtons'>
-              <button onClick={handleCreateNote}>Create</button>
-              <button onClick={() => setIsPopupOpen(false)}>Cancel</button>
-            </div>
-          </div>
-        </div>
-      )}
+      <NotePopup 
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+        onCreate={handleCreateNote}
+        title={newNoteTitle}
+        setTitle={setNewNoteTitle}
+      />
     </div>
   );
 }
