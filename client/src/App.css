@@ -115,16 +115,33 @@
   gap: 10px;
 }
 
+.noteTabWrapper {
+  position: relative;
+  display: inline-block;
+  margin-right: 25px;
+}
+
+.noteTabWrapper .noteFiles {
+  margin-right: 0;
+}
+
 .deleteButton {
+  position: absolute;
+  top: -8px;
+  right: -12px;
+  margin: 0;
+  padding: 2px 7px;
+  border-radius: 50%;
+  transition: all .5s ease;
   background: #ff4d4d;
   color: white;
   border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  padding: 2px 8px;
-  margin-left: 5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  font-weight: bold;
 }
 
 .deleteButton:hover {
   background: #ff0000;
+  transform: scale(1.05);
+  transition: all .5s ease;
 }

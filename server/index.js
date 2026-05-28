@@ -2,10 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
-const Note = require('./schema/Note.js');
+const Note = require('./schema/Note');
 
 const app = express();
-const PORT = 5000;
 
 // Middleware
 app.use(cors());
@@ -17,29 +16,49 @@ mongoose.connect('mongodb://127.0.0.1:27017/NoteApp')
 
 app.get('/api/notes', async (req, res) => {
   try {
-    const notes = await Note.find().sort({createdAt: -1});
-    res.status(200).json(notes);
-  } catch (error) {
-    console.error("Unable to find notes:", error);
-    res.status(500).json({error: "Unable to get notes."});
+    const notes = await Note.find();
+    res.json(notes);
+  } catch (err) {
+    res.status(500).json({ error: 'Unable to fetch notes.'});
   }
 });
 
 app.post('/api/notes', async (req, res) => {
   try {
-    const {content} = req.body;
-    if (!content) {
-      return res.status(400).json({ error: 'Content is required.'});
-    }
-    const newNote = new Note({content});
-    await newNote.save();
-    
-    res.status(201).json({message: 'Note Saved.', note: newNote});
-  } catch (error) {
-    console.error("Error saving note:", error);
-    res.status(500).json({error: 'Unable to save note.'});
+    const newNote = new Note({
+      title: req.body.title,
+      content: req.body.content || ''
+    });
+    const savedNote = await newNote.save();
+    res.status(201).json(savedNote);
+  } catch (err) {
+    res.status(500).json({ error: 'Unable to create note.'});
   }
 });
+
+app.put('/api/notes/:id', async (req, res) => {
+  try {
+    const updatedNote = await Note.findByIdAndUpdate(
+      req.params.id,
+      { content: req.body.content },
+      { new: true }
+    );
+    res.json(updatedNote);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to update note'});
+  }
+});
+
+app.delete('/api/notes/:id', async (req, res) => {
+  try {
+    await Note.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Noted deleted.'})
+  } catch (err) {
+    res.status(500).json({ error: "Unable to delete note."});
+  }
+});
+
+const PORT = 5000;
 
 app.listen(PORT, () => {
   console.log('Server listening on port ${PORT}`')
